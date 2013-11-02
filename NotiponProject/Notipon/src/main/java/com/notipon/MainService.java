@@ -16,6 +16,7 @@ public class MainService extends Service  {
     public static final String TAG = "MainService";
     public static final String BROADCAST_ACTION = "com.notipon.MainService.broadcast";
     public static final String PACKAGE_NAME = "com.notipon";
+    private static final String DEALS_EXTRA = "com.notipon.deals";
     private Handler handler = new Handler();
     private Intent intent;
     private static final int DELAY_MS = 5000;
@@ -59,6 +60,12 @@ public class MainService extends Service  {
         ArrayList<Deal> deals = getDeals(filter);
         // apply filter
         // call notification if match(es) found
+        sendDeals(deals);
+    }
+
+    private void sendDeals(ArrayList<Deal> deals) {
+        Intent intent = new Intent("whatever John says here");
+        intent.putExtra(DEALS_EXTRA, deals);
     }
 
     private ArrayList<Deal> getDeals() {

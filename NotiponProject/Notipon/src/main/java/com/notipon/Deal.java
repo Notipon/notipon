@@ -1,11 +1,12 @@
 package com.notipon;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by ryan on 11/2/13.
  */
-public class Deal {
+public class Deal implements Serializable {
     public String merchantName;
     public String dealUrl;
     public String imageUrl;
