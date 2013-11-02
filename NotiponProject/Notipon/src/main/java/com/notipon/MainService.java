@@ -62,7 +62,10 @@ public class MainService extends Service  {
     }
 
     private ArrayList<Deal> getDeals() {
-        return null;
+        ArrayList<Deal> examples = new ArrayList<Deal>();
+        examples.add(new Deal("Caffe Vita", "http://www.caffevita.com/", "http://imageshack.com/mom", "Seattle"));
+        examples.add(new Deal("Thai Curry Simple", "http://www.thaicurrysimple.com/", "http://imageshack.com/mom", "Seattle"));
+        return examples;
     }
 
     private ArrayList<Deal> getDeals(Filter filter) {
