@@ -2,6 +2,8 @@ package com.notipon;
 
 import android.content.SharedPreferences;
 
+import java.util.ArrayList;
+
 /**
  * Created by ryan on 11/2/13.
  */
@@ -25,5 +27,30 @@ public class Filter {
         editor.putString(NAME, name);
         editor.putString(LOCATION, location);
         editor.commit();
+    }
+
+    public boolean matches(Deal deal) {
+        boolean inArea = false;
+        for (String area : deal.areas) {
+            if (area.equalsIgnoreCase(location)) {
+                inArea = true;
+                break;
+            }
+        }
+        // TODO better fuzzy searching
+        if (inArea && deal.merchantName.equalsIgnoreCase(name)) {
+            return true;
+        }
+        return false;
+    }
+
+    public ArrayList<Deal> apply(ArrayList<Deal> deals) {
+        ArrayList<Deal> newDeals = new ArrayList<Deal>();
+        for (Deal deal : deals) {
+            if (matches(deal)) {
+                newDeals.add(deal);
+            }
+        }
+        return newDeals;
     }
 }
