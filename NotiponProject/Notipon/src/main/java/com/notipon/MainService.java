@@ -23,7 +23,7 @@ public class MainService extends Service  {
         updateRunnable = new Runnable() {
             public void run() {
                 // call the actual update function
-
+                checkForResults();
                 handler.postDelayed(this, DELAY_MS);
             }
         };
@@ -45,5 +45,14 @@ public class MainService extends Service  {
 
     public IBinder onBind(Intent intent) {
         return null;
+    }
+
+    private void checkForResults() {
+        // get filter
+
+        // run the search
+        // parse results
+        // apply filter
+        // call notification if match(es) found
     }
 }
