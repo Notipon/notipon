@@ -1,15 +1,16 @@
 package com.notipon;
 
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
-import android.support.v4.app.Fragment;
+import android.app.ActionBar;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.os.Build;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -44,6 +45,20 @@ public class MainActivity extends ActionBarActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void notifyMeOnClick(View view) {
+        setContentView(R.layout.activity_main);
+        ImageView angryHuskyImageView = new ImageView(this);
+        angryHuskyImageView.setImageResource(R.drawable.angry_husky);
+        angryHuskyImageView.setLayoutParams(new ActionBar.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        angryHuskyImageView.setAdjustViewBounds(true);
+        angryHuskyImageView.setScaleType(ImageView.ScaleType.FIT_XY);
+        angryHuskyImageView.setMaxHeight(250);
+        angryHuskyImageView.setMaxWidth(250);
+        LinearLayout ll = (LinearLayout)findViewById(R.id.container);
+        ll.addView(angryHuskyImageView);
     }
 
     /**
