@@ -85,7 +85,7 @@ public class MainService extends Service  {
     }
 
     private void sendDeals(ArrayList<Deal> deals) {
-        Intent intent = new Intent("whatever John says here");
+        Intent intent = new Intent(NotifyReceiver.INTENT_NAME);
         intent.putExtra(DEALS_EXTRA, deals);
         sendBroadcast(intent);
     }
