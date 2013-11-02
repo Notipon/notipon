@@ -53,12 +53,24 @@ public class MainService extends Service  {
     }
 
     private void checkForResults() {
+        Log.d(TAG, "Checking for results...");
         // get filter
         SharedPreferences settings = getSharedPreferences(PACKAGE_NAME, MODE_PRIVATE);
         Filter filter = Filter.getActiveFilter(settings);
 
         // run the search and filter
         ArrayList<Deal> deals = getDeals(filter);
+
+        // DEBUG
+        for (Deal deal : deals) {
+            Log.d(TAG, "Found a deal!");
+            Log.d(TAG, "\t" + deal.merchantName);
+            Log.d(TAG, "\t" + deal.dealUrl);
+            Log.d(TAG, "\t" + deal.imageUrl);
+            for (String area : deal.areas) {
+                Log.d(TAG, "\t" + area);
+            }
+        }
 
         // call notification if match(es) found
         sendDeals(deals);
