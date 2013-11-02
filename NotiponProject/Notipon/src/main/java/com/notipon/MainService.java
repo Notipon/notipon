@@ -61,7 +61,8 @@ public class MainService extends Service  {
         ArrayList<Deal> deals = getDeals(filter);
 
         // call notification if match(es) found
-        sendDeals(deal    }
+        sendDeals(deals);
+    }
 
     private void sendDeals(ArrayList<Deal> deals) {
         Intent intent = new Intent("whatever John says here");
