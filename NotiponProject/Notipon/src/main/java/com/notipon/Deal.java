@@ -19,4 +19,8 @@ public class Deal implements Serializable {
         this.areas = new ArrayList<String>();
         this.areas.add(area);
     }
+
+    public Deal() {
+        areas = new ArrayList<String>();
+    }
 }
