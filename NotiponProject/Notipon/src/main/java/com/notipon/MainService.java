@@ -56,16 +56,17 @@ public class MainService extends Service  {
         // get filter
         SharedPreferences settings = getSharedPreferences(PACKAGE_NAME, MODE_PRIVATE);
         Filter filter = Filter.getActiveFilter(settings);
-        // run the search
+
+        // run the search and filter
         ArrayList<Deal> deals = getDeals(filter);
-        // apply filter
+
         // call notification if match(es) found
-        sendDeals(deals);
-    }
+        sendDeals(deal    }
 
     private void sendDeals(ArrayList<Deal> deals) {
         Intent intent = new Intent("whatever John says here");
         intent.putExtra(DEALS_EXTRA, deals);
+        sendBroadcast(intent);
     }
 
     private ArrayList<Deal> getDeals() {
