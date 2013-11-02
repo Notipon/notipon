@@ -25,6 +25,7 @@ public class MainService extends Service  {
     @Override
     public void onCreate() {
         super.onCreate();
+        Log.d(TAG, "Created service!");
         updateRunnable = new Runnable() {
             public void run() {
                 // call the actual update function
@@ -44,7 +45,7 @@ public class MainService extends Service  {
         else {
             Log.e(TAG, "updateRunnable is null");
         }
-
+        Log.d(TAG, "Started service!");
         return START_STICKY;
     }
 
