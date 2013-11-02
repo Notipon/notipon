@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="7"
+        android:minSdkVersion="11"
         android:targetSdkVersion="18" />
 
     <application
@@ -22,6 +22,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <receiver android:name="com.notipon.NotifyReceiver" >
+            <intent-filter>
+                <action android:name="com.notipon.NOTIFY" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
