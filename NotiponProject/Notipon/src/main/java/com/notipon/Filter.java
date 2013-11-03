@@ -40,20 +40,37 @@ public class Filter {
     }
 
     public void setActiveFilter(SharedPreferences settings) {
+        normalizeFields();
         SharedPreferences.Editor editor = settings.edit();
         editor.putString(NAME, name);
         editor.putString(LOCATION, location);
         editor.commit();
     }
 
+    private void normalizeFields() {
+        if (name != null) {
+            name = name.trim();
+        }
+
+        if (location != null) {
+            location = location.trim();
+        }
+    }
+
     public boolean matches(Deal deal) {
         boolean inArea = false;
-        for (String area : deal.areas) {
-            if (area.equalsIgnoreCase(location)) {
-                inArea = true;
-                break;
+        if (location.length() == 0) {
+            inArea = true;
+        }
+        else {
+            for (String area : deal.areas) {
+                if (area.equalsIgnoreCase(location)) {
+                    inArea = true;
+                    break;
+                }
             }
         }
+
         // TODO better fuzzy searching
         if (!deal.isSoldOut && inArea && deal.merchantName.equalsIgnoreCase(name)) {
             return true;

@@ -1,5 +1,7 @@
 package com.notipon;
 
+import android.graphics.Bitmap;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,7 +17,7 @@ public class Deal implements Serializable {
     public Date endTime;
     boolean isSoldOut;
     public Integer dealId;
-    public byte[] imgData;
+    public Bitmap imgData;
 
     public Deal(String merchantName, String dealUrl, String imageUrl, String area, Date endTime, boolean isSoldOut) {
         this.merchantName = merchantName;
