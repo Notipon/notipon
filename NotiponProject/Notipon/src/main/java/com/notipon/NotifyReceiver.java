@@ -18,10 +18,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicInteger;
-
-import com.notipon.Deal;
-import com.notipon.MainService;
 
 /**
  * Created by john-gu on 11/2/13.
