@@ -1,6 +1,8 @@
 package com.notipon;
 
 import android.content.SharedPreferences;
+import android.util.Log;
+
 import java.util.ArrayList;
 
 /**
@@ -70,13 +72,14 @@ public class Filter {
 
         // TODO better fuzzy searching
         if (!deal.isSoldOut && inArea) {
+            String filteredName = filterStopWords(name);
             // match on merchant name
-            if (deal.merchantName.equalsIgnoreCase((name))) {
+            if (filterStopWords(deal.merchantName).equalsIgnoreCase((filteredName))) {
                 return true;
             }
             // match on category name
             for (String category : deal.categories) {
-                if (category.equalsIgnoreCase((name))) {
+                if (filterStopWords(category).equalsIgnoreCase((filteredName))) {
                     return true;
                 }
             }
@@ -92,6 +95,15 @@ public class Filter {
             }
         }
         return newDeals;
+    }
+
+    public String filterStopWords(String name) {
+        Log.d("", "original word: " + name);
+        String stopWords = "(\\b(a|an|and|in|on|of)\\b|\\&)";
+        String res = name.replaceAll(stopWords, "");
+        res = res.replaceAll("\\s+", " ");
+        Log.d("", "new word: " + res);
+        return res;
     }
 
     public String toString() {
