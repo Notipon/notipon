@@ -88,6 +88,7 @@ public class NotifyReceiver extends BroadcastReceiver {
                         int notiWidth = (int)context.getResources().getDimension(android.R.dimen.notification_large_icon_width);
                         int notiHeight = (int)context.getResources().getDimension(android.R.dimen.notification_large_icon_height);
 
+                        // If image smaller than notification icon, scale up and crop center
                         if (origWidth < notiWidth || origHeight < notiHeight) {
                             float scale;
                             if (origWidth < origImg.getHeight()) {
@@ -106,7 +107,7 @@ public class NotifyReceiver extends BroadcastReceiver {
                             Log.d("NotifyReceiver", "offsetX is " + offsetX + " offsetY is " + offsetY);
                             cropImg = Bitmap.createBitmap(scaled, offsetX, offsetY, notiWidth, notiHeight);
                         } else {
-                            // TODO: I will finish this tomorrow
+                            // Use original image if it's larger than notification icon size
                             cropImg = origImg;
                         }
 
