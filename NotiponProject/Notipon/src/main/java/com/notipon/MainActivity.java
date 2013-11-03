@@ -68,7 +68,7 @@ public class MainActivity extends ActionBarActivity {
     private void setTestFilter() {
         SharedPreferences settings = getSharedPreferences(MainService.PACKAGE_NAME, MODE_PRIVATE);
 
-        Filter exampleFilter = new Filter("Thai Curry Simple", "Seattle");
+        Filter exampleFilter = new Filter("Clearly Comfortable Smiles", "Seattle");
         exampleFilter.setActiveFilter(settings);
     }
 

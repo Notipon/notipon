@@ -54,6 +54,10 @@ public class MainService extends Service  {
             Log.e(TAG, "updateRunnable is null");
         }
         Log.d(TAG, "Started service!");
+
+        // test the Json parsing
+        logDealList("Json deals", getJsonExampleDeals());
+
         return START_STICKY;
     }
 
@@ -62,38 +66,23 @@ public class MainService extends Service  {
     }
 
     private void checkForResults() {
-        Log.d(TAG, "Checking for results...");
-        // get filter
         SharedPreferences settings = getSharedPreferences(PACKAGE_NAME, MODE_PRIVATE);
         Filter filter = Filter.getActiveFilter(settings);
 
-        // DEBUG for filter
-        if (!filter.isEmpty()){
-            Log.d(TAG, filter.name);
-            Log.d(TAG, filter.location);
-        }
-        else {
-            Log.d(TAG, "No filter found :(");
-        }
-
-        // search for deals if we have a filter to apply
         if (filter.isEmpty()) {
             return;
         }
+
+        Log.d(TAG, filter.name);
+        Log.d(TAG, filter.location);
+
+        // search and filter deals
         ArrayList<Deal> deals = getDeals(filter);
 
         // DEBUG
-        for (Deal deal : deals) {
-            Log.d(TAG, "Found a deal!");
-            Log.d(TAG, "\t" + deal.merchantName);
-            Log.d(TAG, "\t" + deal.dealUrl);
-            Log.d(TAG, "\t" + deal.imageUrl);
-            for (String area : deal.areas) {
-                Log.d(TAG, "\t" + area);
-            }
-        }
+        logDealList("Loaded deals", deals);
 
-        // call notification if match(es) found
+        // call notification
         sendDeals(deals);
     }
 
@@ -104,6 +93,10 @@ public class MainService extends Service  {
     }
 
     private ArrayList<Deal> getDeals() {
+        return getJsonExampleDeals();
+    }
+
+    private ArrayList<Deal> getExampleDeals() {
         ArrayList<Deal> examples = new ArrayList<Deal>();
         examples.add(new Deal("Caffe Vita", "http://www.caffevita.com/", "http://www.chefscollaborative.org/wp-content/uploads/2010/08/caffe-vita-logo-bw-650x1024.jpg", "Seattle"));
         examples.add(new Deal("Thai Curry Simple", "http://www.thaicurrysimple.com/", "http://www.thestranger.com/binary/c21d/Thai_Curry_Simple_Dominic_Holden.jpg", "Seattle"));
@@ -141,9 +134,17 @@ public class MainService extends Service  {
                     JSONArray locations = deal.getJSONArray("areas");
                     if (locations != null) {
                         for (int j = 0; j < locations.length(); j++) {
-                            parsed.areas.add(locations.getJSONObject(i).getString("name"));
+                            parsed.areas.add(locations.getJSONObject(j).getString("name"));
                         }
                     }
+
+                    parsed.computeDealID();
+                    deals.add(parsed);
+
+                    Deal parsedCaps = new Deal(parsed);
+                    parsedCaps.merchantName = parsedCaps.merchantName.toUpperCase();
+                    parsedCaps.computeDealID();
+                    deals.add(parsedCaps);
                 }
             }
 
@@ -151,10 +152,21 @@ public class MainService extends Service  {
         } catch (IOException e) {
             Log.e(TAG, "Failed to load example Json");
         } catch (JSONException e) {
-            Log.e(TAG, "Failed to parse example Json");
+            Log.e(TAG, "Failed to parse example Json", e);
         }
 
         return null;
+    }
+
+    private void logDealList(String header, ArrayList<Deal> deals) {
+        Log.d(TAG, header + " deals:");
+        if (deals == null) {
+            Log.d(TAG, "null");
+            return;
+        }
+        for (Deal deal : deals) {
+            Log.d(TAG, "Deal: " + deal);
+        }
     }
 
     private ArrayList<Deal> getDeals(Filter filter) {
