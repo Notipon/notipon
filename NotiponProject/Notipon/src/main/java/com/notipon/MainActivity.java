@@ -61,6 +61,10 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void onButtonClick(View view) {
+        setTestFilter();
+    }
+
     private void setTestFilter() {
         SharedPreferences settings = getSharedPreferences(MainService.PACKAGE_NAME, MODE_PRIVATE);
 

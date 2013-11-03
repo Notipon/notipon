@@ -85,15 +85,16 @@ public class NotifyReceiver extends BroadcastReceiver {
                     Notification noti = builder.build();
 
 
-            NotificationManager notificationManager =
-                    (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+                    NotificationManager notificationManager =
+                            (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-            notificationManager.notify(0, noti);
+                    notificationManager.notify(0, noti);
 
-            recordNotification(context, activeDeal);
+                    recordNotification(context, activeDeal);
+                }
+            }.start();
         }
-    }.start();
-        }}
+    }
 
     public boolean alreadyNotified(Context context, Integer dealId) {
         SharedPreferences settings = context.getSharedPreferences(MainService.PACKAGE_NAME, context.MODE_PRIVATE);

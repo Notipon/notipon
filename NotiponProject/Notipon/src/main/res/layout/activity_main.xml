@@ -32,5 +32,6 @@
         android:layout_gravity="center_vertical"
         android:layout_alignTop="@+id/location_text"
         android:layout_toRightOf="@+id/description_text"
-        android:layout_marginLeft="82dp" />
+        android:layout_marginLeft="82dp"
+        android:onClick="onButtonClick"/>
 </RelativeLayout>
