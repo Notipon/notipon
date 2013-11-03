@@ -11,15 +11,19 @@ public class Deal implements Serializable {
     public String dealUrl;
     public String imageUrl;
     public ArrayList<String> areas;
+    public String endTime;
+    boolean isSoldOut;
     public Integer dealId;
     public byte[] imgData;
 
-    public Deal(String merchantName, String dealUrl, String imageUrl, String area) {
+    public Deal(String merchantName, String dealUrl, String imageUrl, String area, String endTime, boolean isSoldOut) {
         this.merchantName = merchantName;
         this.dealUrl = dealUrl;
         this.imageUrl = imageUrl;
         this.areas = new ArrayList<String>();
         this.areas.add(area);
+        this.endTime = endTime;
+        this.isSoldOut = isSoldOut;
         computeDealID();
     }
 
@@ -32,6 +36,8 @@ public class Deal implements Serializable {
         dealUrl = parsed.dealUrl;
         imageUrl = parsed.imageUrl;
         areas = new ArrayList<String>(parsed.areas);
+        endTime = parsed.endTime;
+        isSoldOut = parsed.isSoldOut;
         computeDealID();
     }
 
@@ -49,6 +55,10 @@ public class Deal implements Serializable {
             builder.append(' ');
             builder.append(area);
         }
+        builder.append(' ');
+        builder.append(endTime);
+        builder.append(' ');
+        builder.append(isSoldOut);
 
         return builder.toString();
     }
