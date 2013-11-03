@@ -90,13 +90,6 @@ public class MainActivity extends ActionBarActivity {
         task.execute();
     }
 
-    private void setTestFilter() {
-        SharedPreferences settings = getSharedPreferences(MainService.PACKAGE_NAME, MODE_PRIVATE);
-
-        Filter exampleFilter = new Filter("Clearly Comfortable Smiles", "Seattle");
-        exampleFilter.setActiveFilter(settings);
-    }
-
     /**
      * A placeholder fragment containing a simple view.
      */
