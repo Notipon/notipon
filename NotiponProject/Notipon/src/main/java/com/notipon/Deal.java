@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by ryan on 11/2/13.
@@ -13,12 +14,12 @@ public class Deal implements Serializable {
     public String dealUrl;
     public String imageUrl;
     public ArrayList<String> areas;
-    public String endTime;
+    public Date endTime;
     boolean isSoldOut;
     public Integer dealId;
     public Bitmap imgData;
 
-    public Deal(String merchantName, String dealUrl, String imageUrl, String area, String endTime, boolean isSoldOut) {
+    public Deal(String merchantName, String dealUrl, String imageUrl, String area, Date endTime, boolean isSoldOut) {
         this.merchantName = merchantName;
         this.dealUrl = dealUrl;
         this.imageUrl = imageUrl;
@@ -58,7 +59,9 @@ public class Deal implements Serializable {
             builder.append(area);
         }
         builder.append(' ');
-        builder.append(endTime);
+        if (endTime != null) {
+            builder.append(endTime);
+        }
         builder.append(' ');
         builder.append(isSoldOut);
 

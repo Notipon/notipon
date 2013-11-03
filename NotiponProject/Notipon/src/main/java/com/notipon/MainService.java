@@ -14,7 +14,11 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by keith on 11/2/13.
@@ -117,7 +121,7 @@ public class MainService extends Service  {
 
                     Deal parsed = new Deal();
                     parsed.dealUrl = deal.getString("dealUrl");
-                    parsed.endTime = deal.getString("endAt");
+                    parsed.endTime = convertToDate(deal.getString("endAt"));
                     parsed.isSoldOut = deal.getBoolean("isSoldOut");
 
                     JSONObject merchantObject = deal.getJSONObject("merchant");
@@ -166,5 +170,15 @@ public class MainService extends Service  {
 
     private ArrayList<Deal> getDeals(Filter filter) {
         return filter.apply(getDeals());
+    }
+
+    private Date convertToDate(String date) {
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.US);
+        try {
+            return format.parse(date);
+        }
+        catch (Exception e) {
+        }
+        return null;
     }
 }
