@@ -23,7 +23,7 @@ public class MainService extends Service  {
     public static final String TAG = "MainService";
     public static final String BROADCAST_ACTION = "com.notipon.MainService.broadcast";
     public static final String PACKAGE_NAME = "com.notipon";
-    private static final String DEALS_EXTRA = "com.notipon.deals";
+    public static final String DEALS_EXTRA = "com.notipon.deals";
     private static final String EXAMPLE_JSON_FILE = "example_deals.json";
     private Handler handler = new Handler();
     private Intent intent;
@@ -77,7 +77,7 @@ public class MainService extends Service  {
         }
 
         // run the search and filter
-        if (!filter.isEmpty()) {
+        if (filter.isEmpty()) {
             return;
         }
         ArrayList<Deal> deals = getDeals(filter);
