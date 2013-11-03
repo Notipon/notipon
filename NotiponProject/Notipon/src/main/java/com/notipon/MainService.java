@@ -79,7 +79,7 @@ public class MainService extends Service {
         SharedPreferences settings = getSharedPreferences(PACKAGE_NAME, MODE_PRIVATE);
         final Filter filter = Filter.getActiveFilter(settings);
 
-        if (filter.isEmpty()) {
+        if (fetcher == null || filter == null || filter.isEmpty()) {
             return;
         }
 
