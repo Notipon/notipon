@@ -76,7 +76,7 @@ public class MainService extends Service  {
             Log.d(TAG, "No filter found :(");
         }
 
-        // run the search and filter
+        // search for deals if we have a filter to apply
         if (filter.isEmpty()) {
             return;
         }
