@@ -2,7 +2,10 @@
 <resources>
 
     <string name="app_name">Notipon</string>
-    <string name="hello_world">Hello world2!</string>
+    <string name="headline">Watch and notify your deal!</string>
+    <string name="description_text">Description</string>
+    <string name="location_text">location</string>
+    <string name="button_send">Notify</string>
     <string name="action_settings">Settings</string>
 
 </resources>
