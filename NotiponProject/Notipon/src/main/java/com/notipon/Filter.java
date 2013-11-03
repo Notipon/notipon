@@ -15,6 +15,13 @@ public class Filter {
     private static final String NAME = "name";
     private static final String LOCATION = "location";
 
+    public boolean isEmpty() {
+        if (name == null || location == null) {
+            return true;
+        }
+        return false;
+    }
+
     public static Filter getActiveFilter(SharedPreferences settings) {
         Filter filter = new Filter();
         filter.name = settings.getString(NAME, null);

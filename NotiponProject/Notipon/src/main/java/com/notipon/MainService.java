@@ -46,7 +46,7 @@ public class MainService extends Service  {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if (updateRunnable == null) {
+        if (updateRunnable != null) {
             handler.removeCallbacks(updateRunnable);
             handler.postDelayed(updateRunnable, DELAY_MS);
         }
@@ -67,7 +67,19 @@ public class MainService extends Service  {
         SharedPreferences settings = getSharedPreferences(PACKAGE_NAME, MODE_PRIVATE);
         Filter filter = Filter.getActiveFilter(settings);
 
+        // DEBUG for filter
+        if (!filter.isEmpty()){
+            Log.d(TAG, filter.name);
+            Log.d(TAG, filter.location);
+        }
+        else {
+            Log.d(TAG, "No filter found :(");
+        }
+
         // run the search and filter
+        if (!filter.isEmpty()) {
+            return;
+        }
         ArrayList<Deal> deals = getDeals(filter);
 
         // DEBUG
