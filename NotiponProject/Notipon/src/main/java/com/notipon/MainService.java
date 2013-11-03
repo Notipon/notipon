@@ -68,9 +68,6 @@ public class MainService extends Service {
         }
         Log.d(TAG, "Started service!");
 
-        // test the Json parsing
-        logDealList("Example deals", fetcher.getDeals());
-
         return START_STICKY;
     }
 
@@ -80,22 +77,32 @@ public class MainService extends Service {
 
     private void checkForResults() {
         SharedPreferences settings = getSharedPreferences(PACKAGE_NAME, MODE_PRIVATE);
-        Filter filter = Filter.getActiveFilter(settings);
+        final Filter filter = Filter.getActiveFilter(settings);
 
         if (filter.isEmpty()) {
             return;
         }
 
-        Log.d(TAG, "Filter: " + filter);
+        // need to do network off the main thread
+        new Thread() {
+            public void run() {
+                Log.d(TAG, "Filter: " + filter);
 
-        // search and filter deals
-        ArrayList<Deal> deals = fetcher.getDeals(filter);
+                // search and filter deals
+                ArrayList<Deal> deals = fetcher.getDeals();
 
-        // DEBUG
-        logDealList("Loaded deals", deals);
+                // DEBUG
+                logDealList("Unfiltered deals", deals);
 
-        // call notification
-        sendDeals(deals);
+                deals = filter.apply(deals);
+
+                // DEBUG
+                logDealList("Filtered deals", deals);
+
+                // call notification
+                sendDeals(deals);
+            }
+        }.start();
     }
 
     private void sendDeals(ArrayList<Deal> deals) {

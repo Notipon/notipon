@@ -25,17 +25,14 @@ public class DealFetcher {
     }
 
     public ArrayList<Deal> getDeals() {
-        return getJsonExampleDeals();
+        //return Deal.parseJsonDeals(fetchCurrentDeals());
+        return Deal.parseJsonDeals(loadExampleJson());
     }
 
     public ArrayList<Deal> getDeals(Filter filter) {
         return filter.apply(getDeals());
     }
 
-    private ArrayList<Deal> getJsonExampleDeals() {
-        return Deal.parseJsonDeals(loadExampleJson());
-    }
-    
     private String loadStreamAsString(InputStream binaryInput) throws IOException {
         BufferedReader in = new BufferedReader(new InputStreamReader(binaryInput));
         StringBuilder builder = new StringBuilder();
@@ -62,7 +59,12 @@ public class DealFetcher {
     private URL buildDealRequestUrl() throws MalformedURLException {
         return new URL("http://api.groupon.com/v2/deals/?client_id=" + grouponKey);
     }
-    
+
+    /**
+     * Testing: Tested that it works.  But we need to be careful to throttle
+     * requests or else it'll get out key blocked.  Also, disabling it for the
+     * demo.
+     */
     private String fetchCurrentDeals() {
         try {
             // TODO: Check the HTTP response code, the response content
