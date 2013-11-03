@@ -60,7 +60,7 @@ public class DealFetcher {
     }
     
     private URL buildDealRequestUrl() throws MalformedURLException {
-	return new URL("http://api.groupon.com/v2/deals/?client_id=" + grouponKey);
+        return new URL("http://api.groupon.com/v2/deals/?client_id=" + grouponKey);
     }
     
     private String fetchCurrentDeals() {
@@ -76,6 +76,6 @@ public class DealFetcher {
         }
 	
         Log.e(TAG, "Error in fetching current deals, falling back to example Json.");
-	return loadExampleJson();
+        return loadExampleJson();
     }
 }
