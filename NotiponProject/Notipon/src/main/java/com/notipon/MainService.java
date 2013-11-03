@@ -77,7 +77,7 @@ public class MainService extends Service  {
         }
 
         // run the search and filter
-        if (!filter.isEmpty()) {
+        if (filter.isEmpty()) {
             return;
         }
         ArrayList<Deal> deals = getDeals(filter);
