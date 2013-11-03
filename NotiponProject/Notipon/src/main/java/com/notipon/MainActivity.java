@@ -86,8 +86,12 @@ public class MainActivity extends ActionBarActivity {
         Toast toast = Toast.makeText(this, "Set alert for " + exampleFilter.name, Toast.LENGTH_SHORT);
         toast.show();
 
-        DealTask task = new DealTask();
-        task.execute();
+        // Clear out current filters
+        descriptionView.setText("");
+        locationView.setText("");
+
+        //DealTask task = new DealTask();
+        //task.execute();
     }
 
     /**
