@@ -96,13 +96,6 @@ public class MainService extends Service  {
         return getJsonExampleDeals();
     }
 
-    private ArrayList<Deal> getExampleDeals() {
-        ArrayList<Deal> examples = new ArrayList<Deal>();
-        examples.add(new Deal("Caffe Vita", "http://www.caffevita.com/", "http://www.chefscollaborative.org/wp-content/uploads/2010/08/caffe-vita-logo-bw-650x1024.jpg", "Seattle"));
-        examples.add(new Deal("Thai Curry Simple", "http://www.thaicurrysimple.com/", "http://www.thestranger.com/binary/c21d/Thai_Curry_Simple_Dominic_Holden.jpg", "Seattle"));
-        return examples;
-    }
-
     private ArrayList<Deal> getJsonExampleDeals() {
         try {
             BufferedReader in = new BufferedReader(new InputStreamReader(getAssets().open(EXAMPLE_JSON_FILE)));
@@ -124,6 +117,8 @@ public class MainService extends Service  {
 
                     Deal parsed = new Deal();
                     parsed.dealUrl = deal.getString("dealUrl");
+                    parsed.endTime = deal.getString("endAt");
+                    parsed.isSoldOut = deal.getBoolean("isSoldOut");
 
                     JSONObject merchantObject = deal.getJSONObject("merchant");
                     if (merchantObject != null) {
