@@ -11,6 +11,7 @@ public class Deal implements Serializable {
     public String dealUrl;
     public String imageUrl;
     public ArrayList<String> areas;
+    public byte[] imgData;
 
     public Deal(String merchantName, String dealUrl, String imageUrl, String area) {
         this.merchantName = merchantName;

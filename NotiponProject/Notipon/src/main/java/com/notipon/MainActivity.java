@@ -1,6 +1,5 @@
 package com.notipon;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,18 +11,23 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-
-import java.nio.charset.MalformedInputException;
+import android.widget.TextView;
 
 public class MainActivity extends ActionBarActivity {
+    private TextView descriptionView;
+    private TextView locationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        String item = "Space needle, Seattle";
+
         Log.d("MainActivity", "Hello world!");
         setContentView(R.layout.activity_main);
+
+        descriptionView = (TextView) findViewById(R.id.description_text);
+        locationView    = (TextView) findViewById(R.id.location_text);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -31,6 +35,9 @@ public class MainActivity extends ActionBarActivity {
                     .commit();
         }
         startService(new Intent(this, MainService.class));
+
+        DownloadImagesTask task = new DownloadImagesTask();
+        task.execute();
     }
 
 
@@ -52,22 +59,6 @@ public class MainActivity extends ActionBarActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    public void notifyMeOnClick(View view) {
-        setContentView(R.layout.activity_main);
-        ImageView angryHuskyImageView = new ImageView(this);
-        angryHuskyImageView.setImageResource(R.drawable.angry_husky);
-        angryHuskyImageView.setLayoutParams(new ActionBar.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        angryHuskyImageView.setAdjustViewBounds(true);
-        angryHuskyImageView.setScaleType(ImageView.ScaleType.FIT_XY);
-        angryHuskyImageView.setMaxHeight(250);
-        angryHuskyImageView.setMaxWidth(250);
-        LinearLayout ll = (LinearLayout)findViewById(R.id.container);
-        ll.addView(angryHuskyImageView);
-
-        setTestFilter();
     }
 
     private void setTestFilter() {

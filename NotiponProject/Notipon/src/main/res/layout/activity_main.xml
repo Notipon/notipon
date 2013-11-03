@@ -29,7 +29,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/button_send"
-        android:onClick="notifyMeOnClick"
         android:layout_gravity="center_vertical"
         android:layout_alignTop="@+id/location_text"
         android:layout_toRightOf="@+id/description_text"
