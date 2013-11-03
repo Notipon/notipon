@@ -2,6 +2,7 @@ package com.notipon;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
@@ -11,11 +12,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MainActivity extends ActionBarActivity {
     private TextView descriptionView;
     private TextView locationView;
+
+    private ImageView imgView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +28,11 @@ public class MainActivity extends ActionBarActivity {
         Log.d("MainActivity", "Hello world!");
         setContentView(R.layout.activity_main);
 
-        descriptionView = (TextView) findViewById(R.id.description_text);
-        locationView    = (TextView) findViewById(R.id.location_text);
+        String item = "Space needle, Seattle";
+
+        descriptionView = (TextView)findViewById(R.id.description_text);
+        locationView    = (TextView)findViewById(R.id.location_text);
+        imgView         = (ImageView)findViewById(R.id.myDeal);
 
         // get defaults if available
         SharedPreferences settings = getSharedPreferences(MainService.PACKAGE_NAME, MODE_PRIVATE);
@@ -47,10 +54,7 @@ public class MainActivity extends ActionBarActivity {
         }
         startService(new Intent(this, MainService.class));
 
-        //DownloadImagesTask task = new DownloadImagesTask();
-        //task.execute();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -77,6 +81,9 @@ public class MainActivity extends ActionBarActivity {
         SharedPreferences settings = getSharedPreferences(MainService.PACKAGE_NAME, MODE_PRIVATE);
         Filter exampleFilter = new Filter(descriptionView.getText().toString(), locationView.getText().toString());
         exampleFilter.setActiveFilter(settings);
+
+        DealTask task = new DealTask();
+        task.execute();
     }
 
     private void setTestFilter() {
@@ -99,6 +106,25 @@ public class MainActivity extends ActionBarActivity {
                 Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
             return rootView;
+        }
+    }
+
+    protected class DealTask extends AsyncTask<String, Void, Deal> {
+
+        @Override
+        protected Deal doInBackground(String... params) {
+            Deal d = new Deal();
+            d.imgData = new DealHttpClient().downloadImage("ecwqQzKizoBR5zWMTK6r/Dv-440x267/v1/t460x279.jpg");
+            return d;
+        }
+
+        @Override
+        protected void onPostExecute(Deal mydeal) {
+            super.onPostExecute(mydeal);
+
+            if (mydeal != null && mydeal.imgData != null ) {
+                imgView.setImageBitmap(mydeal.imgData);
+            }
         }
     }
 

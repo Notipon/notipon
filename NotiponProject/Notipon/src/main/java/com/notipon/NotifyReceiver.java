@@ -64,7 +64,7 @@ public class NotifyReceiver extends BroadcastReceiver {
                     // Pending intent for click is redirection using the deep-link
                     Intent resultIntent = new Intent(Intent.ACTION_VIEW);
                     resultIntent.setData(Uri.parse(activeDeal.dealUrl));
-                    PendingIntent openUrlIntent = PendingIntent.getActivity(context, 0, resultIntent, Intent.FLAG_ACTIVITY_NEW_TASK);
+                    PendingIntent openUrlIntent = PendingIntent.getActivity(context, activeDeal.dealId, resultIntent, Intent.FLAG_ACTIVITY_NEW_TASK);
 
                     Notification.Builder builder = new Notification.Builder(context)
                             .setContentTitle(context.getResources().getString(R.string.deal_found))
