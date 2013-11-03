@@ -76,8 +76,38 @@ public class NotifyReceiver extends BroadcastReceiver {
                     try {
                         Log.d(TAG, "Setting image to " + activeDeal.imageUrl);
                         URL imageUrl = new URL(activeDeal.imageUrl);
-                        Bitmap image = BitmapFactory.decodeStream(imageUrl.openConnection().getInputStream());
-                        builder.setLargeIcon(image);
+                        Bitmap origImg = BitmapFactory.decodeStream(imageUrl.openConnection().getInputStream());
+                        Bitmap cropImg;
+
+                        int origWidth = origImg.getWidth();
+                        int origHeight = origImg.getHeight();
+
+                        int notiWidth = (int)context.getResources().getDimension(android.R.dimen.notification_large_icon_width);
+                        int notiHeight = (int)context.getResources().getDimension(android.R.dimen.notification_large_icon_height);
+
+                        if (origWidth < notiWidth || origHeight < notiHeight) {
+                            float scale;
+                            if (origWidth < origImg.getHeight()) {
+                                scale = notiWidth / (float)origWidth;
+                            } else {
+                                scale = notiHeight / (float)origHeight;
+                            }
+
+                            int scaledWidth = (int)(origWidth * scale);
+                            int scaledHeight = (int)(origHeight * scale);
+
+                            Bitmap scaled = Bitmap.createScaledBitmap(origImg, scaledWidth, scaledHeight, false);
+
+                            int offsetX = (scaledWidth - notiWidth) / 2;
+                            int offsetY = (scaledHeight - notiHeight) / 2;
+                            Log.d("NotifyReceiver", "offsetX is " + offsetX + " offsetY is " + offsetY);
+                            cropImg = Bitmap.createBitmap(scaled, offsetX, offsetY, notiWidth, notiHeight);
+                        } else {
+                            // TODO: I will finish this tomorrow
+                            cropImg = origImg;
+                        }
+
+                        builder.setLargeIcon(cropImg);
                     } catch (MalformedURLException e) {
                         e.printStackTrace();
                     } catch (IOException e) {
