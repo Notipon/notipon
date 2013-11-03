@@ -69,8 +69,17 @@ public class Filter {
         }
 
         // TODO better fuzzy searching
-        if (!deal.isSoldOut && inArea && deal.merchantName.equalsIgnoreCase(name)) {
-            return true;
+        if (!deal.isSoldOut && inArea) {
+            // match on merchant name
+            if (deal.merchantName.equalsIgnoreCase((name))) {
+                return true;
+            }
+            // match on category name
+            for (String category : deal.categories) {
+                if (category.equalsIgnoreCase((name))) {
+                    return true;
+                }
+            }
         }
         return false;
     }

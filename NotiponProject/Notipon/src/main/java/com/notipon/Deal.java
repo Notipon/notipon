@@ -22,6 +22,7 @@ public class Deal implements Serializable {
     public String merchantName;
     public String dealUrl;
     public String imageUrl;
+    public String lrgImageUrl;
     public ArrayList<String> areas;
     public ArrayList<String> categories;
     public Date endTime;
@@ -38,6 +39,7 @@ public class Deal implements Serializable {
         merchantName = other.merchantName;
         dealUrl = other.dealUrl;
         imageUrl = other.imageUrl;
+        lrgImageUrl = other.lrgImageUrl;
         areas = new ArrayList<String>(other.areas);
         categories = new ArrayList<String>(other.categories);
         endTime = other.endTime;
@@ -102,6 +104,7 @@ public class Deal implements Serializable {
                         parsed.merchantName = merchantObject.getString("name");
                     }
                     parsed.imageUrl = deal.getString("mediumImageUrl");
+                    parsed.lrgImageUrl = deal.getString("largeImageUrl");
 
                     JSONArray locations = deal.getJSONArray("areas");
                     if (locations != null) {
