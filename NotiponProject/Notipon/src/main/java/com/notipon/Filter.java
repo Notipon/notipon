@@ -34,7 +34,7 @@ public class Filter {
     public static Filter getActiveFilter(SharedPreferences settings) {
         Filter filter = new Filter();
         filter.name = settings.getString(NAME, null);
-        filter.location = settings.getString(LOCATION, null);
+        filter.location = settings.getString(LOCATION, "Seattle");
         return filter;
     }
 
