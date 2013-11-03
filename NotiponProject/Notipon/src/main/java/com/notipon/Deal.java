@@ -45,7 +45,12 @@ public class Deal implements Serializable {
     }
 
     public void computeDealID() {
+        // unique deal ID to prevent re-notifying users about the same deal
         dealId = merchantName.hashCode() ^ dealUrl.hashCode() ^ imageUrl.hashCode();
+        // include end time in ID if possible, so later deals for the same merchant can be displayed
+        if (endTime != null) {
+            dealId ^= endTime.hashCode();
+        }
     }
 
     public String toString() {
