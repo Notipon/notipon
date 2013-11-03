@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">Notipon</string>
-    <string name="description_text">Store Name</string>
+    <string name="description_text">Merchant/Category Name</string>
     <string name="location_text">Location (e.g., city)</string>
     <string name="button_send">Watch</string>
     <string name="action_settings">Share the deal</string>
