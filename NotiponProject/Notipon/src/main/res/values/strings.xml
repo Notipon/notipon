@@ -7,6 +7,6 @@
     <string name="button_send">Watch</string>
     <string name="action_settings">Share the deal</string>
     <string name="deal_found">Notipon found a deal!</string>
-    <string name="filter_title">Search for deals</string>
+    <string name="filter_title">Watch for deals</string>
 
 </resources>
