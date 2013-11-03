@@ -34,11 +34,8 @@ public class NotifyReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(final Context context, final Intent intent) {
-        Log.d(TAG, "Receiver got com.notipon.NOTIFY intent, time to notify");
-
         // Check that we received right intent and show notifications
         if (INTENT_NAME.equals(intent.getAction())) {
-            Log.d(TAG, "passed intent check. notify on " + intent.toString());
             new Thread() {
                 @Override
                 public void run() {
@@ -46,11 +43,6 @@ public class NotifyReceiver extends BroadcastReceiver {
                     if (deals == null || deals.size() < 1) {
                         Log.d(TAG, "No deals found");
                         return;
-                    }
-
-                    Log.d(TAG, "Listing deals");
-                    for (Deal deal : deals) {
-                        Log.d(TAG, "Deal found: " + deal.merchantName);
                     }
 
                     Deal activeDeal = null;
@@ -77,7 +69,6 @@ public class NotifyReceiver extends BroadcastReceiver {
                             .setAutoCancel(true);
 
                     try {
-                        Log.d(TAG, "Setting image to " + activeDeal.imageUrl);
                         URL imageUrl = new URL(activeDeal.imageUrl);
                         Bitmap origImg = BitmapFactory.decodeStream(imageUrl.openConnection().getInputStream());
                         Bitmap cropImg;
@@ -104,7 +95,6 @@ public class NotifyReceiver extends BroadcastReceiver {
 
                             int offsetX = (scaledWidth - notiWidth) / 2;
                             int offsetY = (scaledHeight - notiHeight) / 2;
-                            Log.d("NotifyReceiver", "offsetX is " + offsetX + " offsetY is " + offsetY);
                             cropImg = Bitmap.createBitmap(scaled, offsetX, offsetY, notiWidth, notiHeight);
                         } else {
                             // Use original image if it's larger than notification icon size
