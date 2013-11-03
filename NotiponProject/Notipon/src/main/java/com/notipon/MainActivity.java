@@ -36,8 +36,8 @@ public class MainActivity extends ActionBarActivity {
         }
         startService(new Intent(this, MainService.class));
 
-        DownloadImagesTask task = new DownloadImagesTask();
-        task.execute();
+        //DownloadImagesTask task = new DownloadImagesTask();
+        //task.execute();
     }
 
 
