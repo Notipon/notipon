@@ -11,6 +11,7 @@ public class Deal implements Serializable {
     public String dealUrl;
     public String imageUrl;
     public ArrayList<String> areas;
+    public Integer dealId;
 
     public Deal(String merchantName, String dealUrl, String imageUrl, String area) {
         this.merchantName = merchantName;
@@ -18,6 +19,7 @@ public class Deal implements Serializable {
         this.imageUrl = imageUrl;
         this.areas = new ArrayList<String>();
         this.areas.add(area);
+        this.dealId = merchantName.hashCode() ^ dealUrl.hashCode() ^ imageUrl.hashCode();
     }
 
     public Deal() {
