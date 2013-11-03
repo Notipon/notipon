@@ -2,10 +2,9 @@
 <resources>
 
     <string name="app_name">Notipon</string>
-    <string name="headline">Watch and notify your deal!</string>
     <string name="description_text">Store Name</string>
     <string name="location_text">Location (e.g., city)</string>
-    <string name="button_send">Set Alert</string>
+    <string name="button_send">Watch</string>
     <string name="action_settings">Settings</string>
     <string name="deal_found">Notipon found a deal!</string>
     <string name="filter_title">Search for deals</string>

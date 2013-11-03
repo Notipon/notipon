@@ -38,17 +38,24 @@
         android:layout_below="@+id/description_text"
         android:layout_alignParentLeft="true"
         android:layout_marginTop="16dp" />
-    
+
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/button"
         android:text="@string/button_send"
+        android:textColor="#F1592A"
+        android:textSize="18sp"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/location_text"
-        android:layout_marginLeft="82dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/button"
+        android:shadowColor="#DB3229"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="2"
         android:onClick="onButtonClick"
-        android:id="@+id/button"
-        android:layout_marginTop="16dp" />
+        />
         
     <ImageView
         android:layout_width="wrap_content"
@@ -57,5 +64,4 @@
         android:layout_below="@+id/button"
         android:layout_alignParentLeft="true"
         android:layout_marginTop="48dp" />
-
 </RelativeLayout>
