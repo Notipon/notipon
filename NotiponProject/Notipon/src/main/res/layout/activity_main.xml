@@ -42,5 +42,4 @@
         android:layout_below="@+id/myDeal"
         android:layout_alignParentLeft="true"
         android:layout_marginTop="56dp" />
->>>>>>> Stashed changes
 </RelativeLayout>
