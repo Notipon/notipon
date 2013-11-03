@@ -65,6 +65,7 @@ public class DealFetcher {
     
     private String fetchCurrentDeals() {
         try {
+            // TODO: Check the HTTP response code, the response content
             URL dealUrl = buildDealRequestUrl();
             return loadStreamAsString(dealUrl.openStream());
         }
