@@ -7,5 +7,6 @@
     <string name="location_text">location</string>
     <string name="button_send">Notify</string>
     <string name="action_settings">Settings</string>
+    <string name="deal_found">Notipon found a deal!</string>
 
 </resources>

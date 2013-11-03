@@ -135,11 +135,6 @@ public class MainService extends Service  {
 
                     parsed.computeDealID();
                     deals.add(parsed);
-
-                    Deal parsedCaps = new Deal(parsed);
-                    parsedCaps.merchantName = parsedCaps.merchantName.toUpperCase();
-                    parsedCaps.computeDealID();
-                    deals.add(parsedCaps);
                 }
             }
 

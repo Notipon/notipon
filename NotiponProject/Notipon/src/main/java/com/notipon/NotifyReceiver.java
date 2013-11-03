@@ -24,32 +24,32 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Created by john-gu on 11/2/13.
  */
 public class NotifyReceiver extends BroadcastReceiver {
+    public static final String TAG = "NotifyReceiver";
     public static final String INTENT_NAME = "com.notipon.NOTIFY";
 
     private static final String HISTORY = "history";
 
     @Override
     public void onReceive(final Context context, final Intent intent) {
-        Log.d("Notipon", "Receiver got com.notipon.NOTIFY intent, time to notify");
+        Log.d(TAG, "Receiver got com.notipon.NOTIFY intent, time to notify");
 
         // Check that we received right intent and show notifications
         if (INTENT_NAME.equals(intent.getAction())) {
-            Log.d("Notipon", "passed intent check. notify on " + intent.toString());
+            Log.d(TAG, "passed intent check. notify on " + intent.toString());
             new Thread() {
                 @Override
                 public void run() {
                     ArrayList<Deal> deals = (ArrayList<Deal>) intent.getSerializableExtra(MainService.DEALS_EXTRA);
                     if (deals == null || deals.size() < 1) {
-                        Log.d("NotifyReceiver", "No deals found");
+                        Log.d(TAG, "No deals found");
                         return;
                     }
 
-                    Log.d("NotifyReceiver", "Listing deals");
+                    Log.d(TAG, "Listing deals");
                     for (Deal deal : deals) {
-                        Log.d("NotifyReceiver", "Deal found: " + deal.merchantName);
+                        Log.d(TAG, "Deal found: " + deal.merchantName);
                     }
 
-                    // TODO log messages so we know this is working
                     Deal activeDeal = null;
                     for (Deal deal : deals) {
                         if (!alreadyNotified(context, deal.dealId)) {
@@ -67,14 +67,14 @@ public class NotifyReceiver extends BroadcastReceiver {
                     PendingIntent openUrlIntent = PendingIntent.getActivity(context, 0, resultIntent, Intent.FLAG_ACTIVITY_NEW_TASK);
 
                     Notification.Builder builder = new Notification.Builder(context)
-                            .setContentTitle("Notipon")
+                            .setContentTitle(context.getResources().getString(R.string.deal_found))
                             .setContentText(activeDeal.merchantName)
                             .setSmallIcon(R.drawable.ic_launcher)
                             .setContentIntent(openUrlIntent)
                             .setAutoCancel(true);
 
                     try {
-                        Log.d("NotifyReceiver", "Setting image to " + activeDeal.imageUrl);
+                        Log.d(TAG, "Setting image to " + activeDeal.imageUrl);
                         URL imageUrl = new URL(activeDeal.imageUrl);
                         Bitmap image = BitmapFactory.decodeStream(imageUrl.openConnection().getInputStream());
                         builder.setLargeIcon(image);
