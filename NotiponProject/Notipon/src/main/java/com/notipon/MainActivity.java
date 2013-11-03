@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
     private TextView descriptionView;
@@ -81,6 +82,9 @@ public class MainActivity extends ActionBarActivity {
         SharedPreferences settings = getSharedPreferences(MainService.PACKAGE_NAME, MODE_PRIVATE);
         Filter exampleFilter = new Filter(descriptionView.getText().toString(), locationView.getText().toString());
         exampleFilter.setActiveFilter(settings);
+
+        Toast toast = Toast.makeText(this, "Set alert for " + exampleFilter.name, Toast.LENGTH_SHORT);
+        toast.show();
 
         DealTask task = new DealTask();
         task.execute();
