@@ -13,12 +13,16 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by john-gu on 11/2/13.
  */
 public class NotifyReceiver extends BroadcastReceiver {
     public static final String INTENT_NAME = "com.notipon.NOTIFY";
+
+    private static AtomicInteger mNotiCounter = new AtomicInteger(0);
+
     @Override
     public void onReceive(final Context context, final Intent intent) {
         Log.d("Notipon", "Receiver got com.notipon.NOTIFY intent, time to notify");
@@ -42,10 +46,12 @@ public class NotifyReceiver extends BroadcastReceiver {
 
                     Deal activeDeal = deals.get(0);
 
+                    int notiNum = mNotiCounter.incrementAndGet();
                     Notification.Builder builder = new Notification.Builder(context)
                             .setContentTitle("Notipon")
                             .setContentText(activeDeal.merchantName)
-                            .setSmallIcon(R.drawable.ic_launcher);
+                            .setSmallIcon(R.drawable.ic_launcher)
+                            .setNumber(notiNum);
 
                     try {
                         Log.d("NotifyReceiver", "Setting image to " + activeDeal.imageUrl);
