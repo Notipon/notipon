@@ -8,12 +8,16 @@ import android.content.Intent;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by john-gu on 11/2/13.
  */
 public class NotifyReceiver extends BroadcastReceiver {
     public static final String INTENT_NAME = "com.notipon.NOTIFY";
+
+    private static AtomicInteger mNotiCounter = new AtomicInteger(0);
+
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d("Notipon", "Receiver got com.notipon.NOTIFY intent, time to notify");
@@ -34,10 +38,14 @@ public class NotifyReceiver extends BroadcastReceiver {
 
             Deal activeDeal = deals.get(0);
 
+            // Get # of existing notifications and increment
+            int notiNum = mNotiCounter.incrementAndGet();
+
             Notification noti = new Notification.Builder(context)
                     .setContentTitle("Notipon")
                     .setContentText(activeDeal.merchantName)
                     .setSmallIcon(R.drawable.ic_launcher)
+                    .setNumber(notiNum)
                     .build();
 
 
