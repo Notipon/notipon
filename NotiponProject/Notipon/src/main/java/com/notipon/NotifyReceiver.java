@@ -118,7 +118,26 @@ public class NotifyReceiver extends BroadcastReceiver {
                         e.printStackTrace();
                     }
 
-                    Notification noti = builder.build();
+                    // Set big picture
+                    URL lrgImageUrl = null;
+                    Bitmap bigPicture = null;
+                    try {
+                        lrgImageUrl = new URL(activeDeal.lrgImageUrl);
+                        bigPicture = BitmapFactory.decodeStream(lrgImageUrl.openConnection().getInputStream());
+                    } catch (MalformedURLException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    Notification noti;
+                    if (lrgImageUrl != null) {
+                        Notification.BigPictureStyle bigNoti = new Notification.BigPictureStyle(builder);
+                        bigNoti.bigPicture(bigPicture);
+                        noti = bigNoti.build();
+                    } else {
+                        noti = builder.build();
+                    }
 
                     NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
