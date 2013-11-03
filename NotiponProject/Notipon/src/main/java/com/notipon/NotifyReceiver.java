@@ -2,12 +2,14 @@ package com.notipon;
 
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.util.Log;
 
 import java.io.IOException;
@@ -25,10 +27,6 @@ public class NotifyReceiver extends BroadcastReceiver {
     public static final String INTENT_NAME = "com.notipon.NOTIFY";
 
     private static final String HISTORY = "history";
-
-
-    private static AtomicInteger mNotiCounter = new AtomicInteger(0);
-
 
     @Override
     public void onReceive(final Context context, final Intent intent) {
@@ -63,13 +61,17 @@ public class NotifyReceiver extends BroadcastReceiver {
                         return;
                     }
 
-                    int notiNum = mNotiCounter.incrementAndGet();
+                    // Pending intent for click is redirection using the deep-link
+                    Intent resultIntent = new Intent(Intent.ACTION_VIEW);
+                    resultIntent.setData(Uri.parse(activeDeal.dealUrl));
+                    PendingIntent openUrlIntent = PendingIntent.getActivity(context, 0, resultIntent, Intent.FLAG_ACTIVITY_NEW_TASK);
+
                     Notification.Builder builder = new Notification.Builder(context)
                             .setContentTitle("Notipon")
                             .setContentText(activeDeal.merchantName)
                             .setSmallIcon(R.drawable.ic_launcher)
-                            .setNumber(notiNum);
-
+                            .setContentIntent(openUrlIntent)
+                            .setAutoCancel(true);
 
                     try {
                         Log.d("NotifyReceiver", "Setting image to " + activeDeal.imageUrl);
@@ -84,11 +86,9 @@ public class NotifyReceiver extends BroadcastReceiver {
 
                     Notification noti = builder.build();
 
+                    NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-                    NotificationManager notificationManager =
-                            (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-
-                    notificationManager.notify(0, noti);
+                    notificationManager.notify(activeDeal.dealId, noti);
 
                     recordNotification(context, activeDeal);
                 }
@@ -101,7 +101,6 @@ public class NotifyReceiver extends BroadcastReceiver {
         Set<String> history = settings.getStringSet(HISTORY, new HashSet<String>());
         if (history.contains(dealId.toString())) {
             return true;
-
         }
         return false;
     }
