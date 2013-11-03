@@ -21,13 +21,24 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        String item = "Space needle, Seattle";
-
         Log.d("MainActivity", "Hello world!");
         setContentView(R.layout.activity_main);
 
         descriptionView = (TextView) findViewById(R.id.description_text);
         locationView    = (TextView) findViewById(R.id.location_text);
+
+        // get defaults if available
+        SharedPreferences settings = getSharedPreferences(MainService.PACKAGE_NAME, MODE_PRIVATE);
+        Filter currentFilter = Filter.getActiveFilter(settings);
+        if (currentFilter != null) {
+            if (currentFilter.name != null) {
+                descriptionView.setText(currentFilter.name);
+            }
+
+            if (currentFilter.location != null) {
+                locationView.setText(currentFilter.location);
+            }
+        }
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
