@@ -62,7 +62,10 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void onButtonClick(View view) {
-        setTestFilter();
+        //setTestFilter();
+        SharedPreferences settings = getSharedPreferences(MainService.PACKAGE_NAME, MODE_PRIVATE);
+        Filter exampleFilter = new Filter(descriptionView.getText().toString(), locationView.getText().toString());
+        exampleFilter.setActiveFilter(settings);
     }
 
     private void setTestFilter() {
