@@ -2,6 +2,7 @@ package com.notipon;
 
 import android.app.ActionBar;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
@@ -65,6 +66,15 @@ public class MainActivity extends ActionBarActivity {
         angryHuskyImageView.setMaxWidth(250);
         LinearLayout ll = (LinearLayout)findViewById(R.id.container);
         ll.addView(angryHuskyImageView);
+
+        setTestFilter();
+    }
+
+    private void setTestFilter() {
+        SharedPreferences settings = getSharedPreferences(MainService.PACKAGE_NAME, MODE_PRIVATE);
+
+        Filter exampleFilter = new Filter("Thai Curry Simple", "Seattle");
+        exampleFilter.setActiveFilter(settings);
     }
 
     /**

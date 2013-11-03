@@ -15,11 +15,20 @@ public class Filter {
     private static final String NAME = "name";
     private static final String LOCATION = "location";
 
+
     public boolean isEmpty() {
         if (name == null || location == null) {
             return true;
         }
         return false;
+    }
+
+    public Filter(String name, String location) {
+        this.name = name;
+        this.location = location;
+    }
+
+    public Filter() {
     }
 
     public static Filter getActiveFilter(SharedPreferences settings) {
