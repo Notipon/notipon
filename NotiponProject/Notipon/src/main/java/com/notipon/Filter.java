@@ -55,7 +55,7 @@ public class Filter {
             }
         }
         // TODO better fuzzy searching
-        if (inArea && deal.merchantName.equalsIgnoreCase(name)) {
+        if (!deal.isSoldOut && inArea && deal.merchantName.equalsIgnoreCase(name)) {
             return true;
         }
         return false;
