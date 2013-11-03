@@ -1,8 +1,6 @@
 package com.notipon;
 
 import android.content.SharedPreferences;
-import android.util.Log;
-
 import java.util.ArrayList;
 
 /**
@@ -15,7 +13,6 @@ public class Filter {
 
     private static final String NAME = "name";
     private static final String LOCATION = "location";
-
 
     public boolean isEmpty() {
         if (name == null || location == null) {
@@ -86,5 +83,9 @@ public class Filter {
             }
         }
         return newDeals;
+    }
+
+    public String toString() {
+        return "(name=" + name + ", location=" + location + ")";
     }
 }
