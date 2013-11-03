@@ -134,6 +134,7 @@ public class NotifyReceiver extends BroadcastReceiver {
                     if (lrgImageUrl != null) {
                         Notification.BigPictureStyle bigNoti = new Notification.BigPictureStyle(builder);
                         bigNoti.bigPicture(bigPicture);
+                        bigNoti.setSummaryText(activeDeal.merchantName);
                         noti = bigNoti.build();
                     } else {
                         noti = builder.build();
